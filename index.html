@@ -19,12 +19,12 @@ main{max-width:1450px;margin:auto;padding:0 18px 28px}
 .finish{position:absolute;right:4%;top:0;bottom:0;width:26px;background:repeating-conic-gradient(#fff 0 25%,#1a2340 0 50%) 0/24px 24px;box-shadow:0 0 20px #fff8;z-index:3}
 .lane{height:50%;position:relative;border-bottom:4px dashed #fff9;display:flex;align-items:center;padding:0 15px}.lane:last-child{border:0}
 .lane-label{position:absolute;left:16px;top:12px;font-weight:1000;text-shadow:0 2px 5px #0008;font-size:13px;letter-spacing:1px}
-.runner{position:absolute;left:5%;top:50%;transform:translateY(-40%);width:125px;height:125px;display:grid;place-items:center;transition:left .34s cubic-bezier(.2,.8,.2,1);z-index:2}
+.runner{position:absolute;left:5%;top:50%;transform:translateY(-40%);width:125px;height:125px;display:grid;place-items:center;transition:left var(--move-duration,2.8s) cubic-bezier(.18,.72,.22,1);z-index:2}
 .horse{font-size:90px;filter:drop-shadow(0 9px 5px #0005);animation:gallop .55s infinite alternate;display:block;transform:scaleX(-1)}
 .runner img{max-width:120px;max-height:115px;object-fit:contain;filter:drop-shadow(0 7px 4px #0005);transform:scaleX(-1)}
 @keyframes gallop{from{transform:scaleX(-1) translateY(2px) rotate(-3deg)}to{transform:scaleX(-1) translateY(-7px) rotate(3deg)}}
 .lane.pink{background:linear-gradient(90deg,#ff3e9d44,transparent)}.lane.blue{background:linear-gradient(90deg,#29a8ff44,transparent)}
-.progress{position:absolute;bottom:9px;left:18px;right:65px;height:8px;background:#07112666;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;width:0;transition:width .3s;border-radius:20px}.pink .progress i{background:var(--pink)}.blue .progress i{background:var(--blue)}
+.progress{position:absolute;bottom:9px;left:18px;right:65px;height:8px;background:#07112666;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;width:0;transition:width var(--move-duration,2.8s) cubic-bezier(.18,.72,.22,1);border-radius:20px}.pink .progress i{background:var(--pink)}.blue .progress i{background:var(--blue)}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.player{border-radius:18px;padding:15px;background:#101a33;border:1px solid #52668f;text-align:center}.player.pink{box-shadow:inset 0 0 25px #ff3e9d20}.player.blue{box-shadow:inset 0 0 25px #29a8ff20}
 .player h2{margin:0 0 5px;font-size:clamp(18px,2.5vw,25px)}.pink h2{color:#ff78bb}.blue h2{color:#62c4ff}.count{font-size:14px;color:#c8d5f0;margin:7px}.meter{display:flex;justify-content:center;gap:7px;margin:10px}.dot{width:15px;height:15px;border-radius:50%;background:#364360;border:1px solid #7180a0}.pink .dot.on{background:var(--pink);box-shadow:0 0 12px var(--pink)}.blue .dot.on{background:var(--blue);box-shadow:0 0 12px var(--blue)}
 .tap{width:100%;font-size:19px;padding:16px;color:white;margin-top:4px}.pink .tap{background:linear-gradient(135deg,#ff70b7,#d71976);box-shadow:0 5px 0 #8f1550}.blue .tap{background:linear-gradient(135deg,#63c9ff,#0878d4);box-shadow:0 5px 0 #064b8a}
@@ -50,7 +50,7 @@ details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-to
 <div class="status" id="status" aria-live="polite">¡PREPÁRENSE! PRESIONA INICIAR CARRERA</div>
 <div class="actions"><button id="startBtn">🏁 INICIAR CARRERA</button><button id="resetBtn">↻ REINICIAR</button><button id="soundBtn">🔊 SONIDO: ACTIVADO</button></div>
 </section>
-<details open><summary>⚙️ PANEL DE EDICIÓN — PERSONALIZA TU JUEGO</summary>
+<details id="editMenu"><summary>☰ MENÚ DE EDICIÓN — PERSONALIZA TODO EL JUEGO</summary>
 <div class="settings">
 <label class="field">Dificultad<select id="difficulty"><option value="easy">Fácil — avanza cada 5 pulsos</option><option value="hard">Difícil — avanza cada 5 pulsos, recorrido mayor</option></select></label>
 <label class="field">Pulsaciones por avance<input id="pulseGoal" type="number" min="1" max="20" value="5"></label>
@@ -65,10 +65,11 @@ details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-to
 <label class="field">Efecto de pulsación<input id="tapSound" type="file" accept="audio/*"></label>
 <label class="field">Efecto de victoria<input id="winSound" type="file" accept="audio/*"></label>
 <label class="field">Voz de instrucciones<select id="voiceMode"><option value="on">Instrucciones habladas y escritas</option><option value="off">Solo instrucciones escritas</option></select></label>
-<label class="field">Velocidad de avance<input id="stepSize" type="number" min="3" max="20" value="10"><small>Porcentaje de pista que avanza cada grupo de pulsaciones.</small></label>
+<label class="field">Distancia por avance (%)<input id="stepSize" type="number" min="3" max="20" value="10"><small>El caballo recorrerá esa distancia poco a poco, con una animación suave.</small></label>
+<label class="field">Velocidad del caballo (segundos)<input id="moveSpeed" type="number" min="1" max="8" step=".5" value="2.8"><small>Más segundos = avance más lento y suave.</small></label>
 <label class="field">Volumen música<input id="volume" type="range" min="0" max="1" step=".05" value=".55"></label>
 </div>
-<p class="instructions"><b>Cómo jugar:</b> Cada jugador presiona repetidamente su botón o tecla. Al completar 5 pulsaciones (o el número que configures), su caballo avanza y el contador vuelve a cero automáticamente. ¡Sigue pulsando hasta cruzar la meta! En modo difícil, la pista es más larga. Puedes cambiar las teclas, imágenes, fondo, música y efectos en este panel.</p>
+<p class="instructions"><b>Cómo jugar:</b> Cada jugador presiona repetidamente su botón o tecla. Al completar el número de pulsaciones configurado, el caballo avanza lentamente con una animación suave y el contador vuelve a cero. ¡Sigue pulsando hasta cruzar la meta! En modo difícil, la pista es más larga. Puedes cambiar las teclas, imágenes, fondo, música y efectos en este panel.</p>
 </details>
 <div class="footer">DESAFÍOS LOCOS · Juego editable · Funciona en navegadores modernos de Windows 10 y 11</div>
 </main>
@@ -76,12 +77,12 @@ details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-to
 <script>
 (()=>{
 const $=id=>document.getElementById(id);
-let state={running:false,done:false,pink:0,blue:0,pinkP:0,blueP:0,goal:5,sound:true,step:10};
+let state={running:false,done:false,pink:0,blue:0,pinkP:0,blueP:0,goal:5,sound:true,step:10,moveSpeed:2.8};
 let ctx;
 function say(t){if($('voiceMode').value==='off'||!('speechSynthesis'in window))return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='es-MX';u.rate=1.02;u.pitch=1.12;speechSynthesis.speak(u)}
 function beep(freq=500,dur=.09){if(!state.sound)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();let o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=freq;o.type='triangle';g.gain.value=.07;o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+dur)}catch(e){}}
 function meter(id,n){$(id).innerHTML=Array.from({length:state.goal},(_,i)=>'<i class="dot '+(i<n?'on':'')+'"></i>').join('')}
-function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.left=(5+prog*.86)+'%';$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROSA! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
+function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Runner').style.left=(5+prog*.86)+'%';$(k+'Progress').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROSA! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
 function start(){if(state.done)return;state.running=true;$('status').textContent='¡YA! ¡QUE COMIENCE LA CARRERA!';say('En sus marcas, listos, fuera. ¡Que comience la carrera!');$('music').volume=Number($('volume').value);if($('music').src&&state.sound)$('music').play().catch(()=>{});beep(800,.2)}
 function reset(){state.running=false;state.done=false;state.pink=state.blue=state.pinkP=state.blueP=0;$('music').pause();$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';draw()}
 function pulse(k){if(!state.running||state.done)return;let p=k==='pink'?'pink':'blue';state[p]++;if(state.sound){let a=$('tapAudio');if(a.src){a.currentTime=0;a.play().catch(()=>{})}else beep(p==='pink'?640:420)}if(state[p]>=state.goal){state[p]=0;state[p+'P']=Math.min(100,state[p+'P']+state.step);beep(p==='pink'?880:700,.16);$('status').textContent=(p==='pink'?'¡ROSA':'¡AZUL')+' AVANZA!';if(state[p+'P']>=100)finish(p)}draw()}
@@ -90,6 +91,7 @@ $('startBtn').onclick=start;$('resetBtn').onclick=reset;$('pinkTap').onclick=()=
 document.addEventListener('keydown',e=>{if(e.repeat||['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;let key=e.key.toLowerCase();if(key===$('pinkKey').value.toLowerCase())pulse('pink');if(key===$('blueKey').value.toLowerCase())pulse('blue');if(key==='enter'&&!state.running&&!state.done)start()});
 $('pulseGoal').onchange=()=>{state.goal=Math.max(1,Math.min(20,Number($('pulseGoal').value)||5));$('pulseGoal').value=state.goal;state.pink=state.blue=0;draw()};
 $('stepSize').onchange=()=>state.step=Math.max(3,Math.min(20,Number($('stepSize').value)||10));
+$('moveSpeed').onchange=()=>{state.moveSpeed=Math.max(1,Math.min(8,Number($('moveSpeed').value)||2.8));draw()};
 $('difficulty').onchange=()=>{$('modeLabel').textContent=$('difficulty').value==='easy'?'FÁCIL':'DIFÍCIL';state.step=$('difficulty').value==='easy'?10:7;$('stepSize').value=state.step;reset()};
 $('pinkName').oninput=()=>document.querySelector('.pink h2').textContent='🐎 '+$('pinkName').value.toUpperCase();$('blueName').oninput=()=>document.querySelector('.blue h2').textContent='🐎 '+$('blueName').value.toUpperCase();
 function upload(id,fn){$(id).onchange=e=>{let f=e.target.files[0];if(f)fn(URL.createObjectURL(f))}}
