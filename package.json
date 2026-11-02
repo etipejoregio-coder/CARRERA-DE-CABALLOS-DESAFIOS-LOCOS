@@ -1,0 +1,40 @@
+{
+  "name": "carrera-caballos-desafios-locos",
+  "version": "1.0.0",
+  "description": "Carrera de Caballos - Desafíos Locos",
+  "main": "main.js",
+  "author": "Desafíos Locos",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.desafioslocos.carreracaballos",
+    "productName": "Carrera de Caballos - Desafíos Locos",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Carrera de Caballos - Desafíos Locos"
+    }
+  }
+}
