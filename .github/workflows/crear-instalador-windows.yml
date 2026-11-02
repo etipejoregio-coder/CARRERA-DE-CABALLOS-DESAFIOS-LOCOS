@@ -1,0 +1,37 @@
+name: Crear instalador de Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "main.js"
+      - "package.json"
+      - ".github/workflows/crear-instalador-windows.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm install
+      - name: Crear instalador EXE
+        run: npm run dist:win
+      - name: Publicar instalador para descarga
+        uses: actions/upload-artifact@v4
+        with:
+          name: Instalador-Carrera-de-Caballos-Windows
+          path: dist/*.exe
+          if-no-files-found: error
+          retention-days: 30
