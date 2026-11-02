@@ -6,6 +6,7 @@ function createWindow() {
     width: 1360,
     height: 850,
     fullscreen: true,
+    fullscreen: true,
     minWidth: 1000,
     minHeight: 700,
     backgroundColor: "#10172d",
