@@ -58,12 +58,12 @@ body.in-game #homeScreen{display:none}body:not(.in-game) main,body:not(.in-game)
 <section class="arena">
 <div class="track" id="track">
 <div class="lane blue"><div class="lane-label">AZUL</div><div class="runner" id="blueRunner"><span class="horse" id="blueEmoji">🐎</span></div><div class="progress"><i id="blueProgress"></i></div></div>
-<div class="lane pink"><div class="lane-label">ROSA</div><div class="runner" id="pinkRunner"><span class="horse" id="pinkEmoji">🐎</span></div><div class="progress"><i id="pinkProgress"></i></div></div>
+<div class="lane pink"><div class="lane-label">ROJO</div><div class="runner" id="pinkRunner"><span class="horse" id="pinkEmoji">🐎</span></div><div class="progress"><i id="pinkProgress"></i></div></div>
 <div class="finish" title="Meta"></div>
 </div>
 <div class="controls">
 <div class="player blue"><h2>🐎 CABALLO AZUL</h2><div class="count" id="blueCount">0 de 5 pulsaciones</div><div class="meter" id="blueMeter"></div><button class="tap" id="blueTap">¡PULSAR AZUL! (L)</button></div>
-<div class="player pink"><h2>🐎 CABALLO ROSA</h2><div class="count" id="pinkCount">0 de 5 pulsaciones</div><div class="meter" id="pinkMeter"></div><button class="tap" id="pinkTap">¡PULSAR ROJO! (A)</button></div>
+<div class="player pink"><h2>🐎 CABALLO ROJO</h2><div class="count" id="pinkCount">0 de 5 pulsaciones</div><div class="meter" id="pinkMeter"></div><button class="tap" id="pinkTap">¡PULSAR ROJO! (A)</button></div>
 </div>
 <div class="status" id="status" aria-live="polite">¡PREPÁRENSE! PRESIONA INICIAR CARRERA</div>
 <div class="actions"><button id="startBtn">🏁 INICIAR CARRERA</button><button id="resetBtn">↻ REINICIAR</button><button id="soundBtn">🔊 SONIDO: ACTIVADO</button></div>
@@ -72,7 +72,7 @@ body.in-game #homeScreen{display:none}body:not(.in-game) main,body:not(.in-game)
 <div class="settings">
 <label class="field">Dificultad<select id="difficulty"><option value="easy">Fácil — avanza cada 5 pulsos</option><option value="hard">Difícil — avanza cada 5 pulsos, recorrido mayor</option></select></label>
 <label class="field">Pulsaciones por avance<input id="pulseGoal" type="number" min="1" max="20" value="5"></label>
-<label class="field">Tecla caballo rosa<input id="pinkKey" maxlength="1" value="a"></label>
+<label class="field">Tecla caballo rojo<input id="pinkKey" maxlength="1" value="a"></label>
 <label class="field">Tecla caballo azul<input id="blueKey" maxlength="1" value="l"></label>
 <label class="field">Tecla para volver a la portada<input id="homeKey" maxlength="12" value="Escape"><small>Presiona esta tecla durante la carrera para regresar a la sala de inicio.</small></label>
 <label class="field">Nombre caballo rojo<input id="pinkName" value="CABALLO ROJO"></label>
@@ -105,7 +105,7 @@ function startDefaultMusic(){if(!state.sound||musicTimer)return;try{ctx=ctx||new
 function stopDefaultMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
 function makeTrail(k,oldProgress,isSuper){const lane=$(k+'Runner').parentElement;const t=document.createElement('span');t.className='trail '+k+(isSuper?' super':'');t.style.left=Math.max(0,5+oldProgress*.86-8)+'%';lane.appendChild(t);setTimeout(()=>t.remove(),1300)}
 function meter(id,n){$(id).innerHTML=Array.from({length:state.goal},(_,i)=>'<i class="dot '+(i<n?'on':'')+'"></i>').join('')}
-function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Runner').style.left=(5+prog*.86)+'%';$(k+'Progress').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROSA! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
+function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Runner').style.left=(5+prog*.86)+'%';$(k+'Progress').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROJO! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
 function enterGame(){state.inGame=true;document.body.classList.add('in-game');reset();$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';}
 function returnHome(){reset();state.inGame=false;document.body.classList.remove('in-game');$('editMenu').open=false;}
 function start(){if(!state.inGame||state.done)return;state.running=true;$('status').textContent='¡YA! ¡QUE COMIENCE LA CARRERA!';say('En sus marcas, listos, fuera. ¡Que comience la carrera!');$('music').volume=Number($('volume').value);if(state.sound){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}beep(800,.2)}
@@ -120,7 +120,7 @@ $('moveSpeed').onchange=()=>{state.moveSpeed=Math.max(1,Math.min(8,Number($('mov
 $('difficulty').onchange=()=>{$('modeLabel').textContent=$('difficulty').value==='easy'?'FÁCIL':'DIFÍCIL';state.step=$('difficulty').value==='easy'?10:7;$('stepSize').value=state.step;reset()};
 $('pinkName').oninput=()=>document.querySelector('.pink h2').textContent='🐎 '+$('pinkName').value.toUpperCase();$('blueName').oninput=()=>document.querySelector('.blue h2').textContent='🐎 '+$('blueName').value.toUpperCase();
 function upload(id,fn){$(id).onchange=e=>{let f=e.target.files[0];if(f)fn(URL.createObjectURL(f))}}
-upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rosa">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});upload('backgroundImage',u=>$('track').style.backgroundImage='url("'+u+'")');
+upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rojo">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});upload('backgroundImage',u=>$('track').style.backgroundImage='url("'+u+'")');
 upload('musicFile',u=>{stopDefaultMusic();$('music').src=u});upload('tapSound',u=>$('tapAudio').src=u);upload('winSound',u=>$('winAudio').src=u);
 $('volume').oninput=()=>$('music').volume=Number($('volume').value);
 $('soundBtn').onclick=()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'🔊 SONIDO: ACTIVADO':'🔇 SONIDO: APAGADO';if(!state.sound){$('music').pause();stopDefaultMusic()}else if(state.running){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}};
