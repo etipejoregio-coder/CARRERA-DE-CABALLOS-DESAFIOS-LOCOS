@@ -181,7 +181,7 @@ document.addEventListener('keydown',e=>{
  const key=e.key.toLowerCase();
  const matches=(id)=>{const v=$(id).value.trim().toLowerCase();return v==='space'?key===' ':v===key};
  if(state.inGame&&matches('homeKey')){e.preventDefault();returnHome();return}
- if(!state.inGame&&matches('startKey')){e.preventDefault();enterGame();return}
+ if(!state.inGame&&matches('startKey')){e.preventDefault();enterGame();start();return}
  if(!state.inGame)return;
  if(matches('restartKey')){e.preventDefault();reset();return}
  if(!state.running&&!state.done&&matches('startKey')){e.preventDefault();start();return}
