@@ -20,8 +20,8 @@ main{max-width:1450px;margin:auto;padding:0 18px 28px}
 .lane{height:50%;position:relative;border-bottom:4px dashed #fff9;display:flex;align-items:center;padding:0 15px}.lane:last-child{border:0}
 .lane-label{position:absolute;left:16px;top:12px;font-weight:1000;text-shadow:0 2px 5px #0008;font-size:13px;letter-spacing:1px}
 .runner{position:absolute;left:5%;top:50%;transform:translateY(-40%);width:125px;height:125px;display:grid;place-items:center;transition:left var(--move-duration,2.8s) cubic-bezier(.18,.72,.22,1);z-index:2}
-.horse{font-size:90px;filter:drop-shadow(0 9px 5px #0005);animation:gallop .55s infinite alternate;display:block;transform:scaleX(-1)}
-.runner img{max-width:120px;max-height:115px;object-fit:contain;filter:drop-shadow(0 7px 4px #0005);transform:scaleX(-1)}
+.horse{font-size:90px;filter:drop-shadow(0 9px 5px #0005);animation:gallop .55s infinite alternate;display:block;transform:none}
+.runner img{max-width:120px;max-height:115px;object-fit:contain;filter:drop-shadow(0 7px 4px #0005);transform:none}
 .trail{position:absolute;top:50%;height:13px;width:clamp(75px,11vw,150px);border-radius:50%;transform:translateY(-50%);z-index:1;pointer-events:none;filter:blur(2px);animation:trailFade 1.15s ease-out forwards}
 .trail.pink{background:linear-gradient(90deg,transparent,#ff2929aa,#fff,#ff2929);box-shadow:0 0 12px #ff2424,0 0 28px #ff2424}
 .trail.blue{background:linear-gradient(90deg,transparent,#168cffaa,#fff,#168cff);box-shadow:0 0 12px #168cff,0 0 28px #168cff}
@@ -30,7 +30,7 @@ main{max-width:1450px;margin:auto;padding:0 18px 28px}
 .runner.super{filter:drop-shadow(0 0 13px #ffe34d) drop-shadow(0 0 25px #ff9d00);animation:superDash .48s ease-in-out 2}
 .runner.super:after{content:"⚡ SUPER PODER";position:absolute;top:-15px;left:50%;transform:translateX(-50%);white-space:nowrap;background:linear-gradient(90deg,#fff19a,#ffb000);color:#442400;border:2px solid white;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:1000;box-shadow:0 0 18px #ffcf35;z-index:5}
 @keyframes superDash{50%{filter:drop-shadow(0 0 20px #fff) drop-shadow(0 0 34px #ffbd00);transform:translateY(-40%) scale(1.12)}}
-@keyframes gallop{from{transform:scaleX(-1) translateY(2px) rotate(-3deg)}to{transform:scaleX(-1) translateY(-7px) rotate(3deg)}}
+@keyframes gallop{from{transform:translateY(2px) rotate(-3deg)}to{transform:translateY(-7px) rotate(3deg)}}
 .lane.pink{background:linear-gradient(90deg,#ff3e9d44,transparent)}.lane.blue{background:linear-gradient(90deg,#29a8ff44,transparent)}
 .progress{position:absolute;bottom:9px;left:18px;right:65px;height:8px;background:#07112666;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;width:0;transition:width var(--move-duration,2.8s) cubic-bezier(.18,.72,.22,1);border-radius:20px}.pink .progress i{background:var(--pink)}.blue .progress i{background:var(--blue)}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.player{border-radius:18px;padding:15px;background:#101a33;border:1px solid #52668f;text-align:center}.player.pink{box-shadow:inset 0 0 25px #ff3e9d20}.player.blue{box-shadow:inset 0 0 25px #29a8ff20}
@@ -127,7 +127,7 @@ $('moveSpeed').onchange=()=>{state.moveSpeed=Math.max(1,Math.min(8,Number($('mov
 $('difficulty').onchange=()=>{$('modeLabel').textContent=$('difficulty').value==='easy'?'FÁCIL':'DIFÍCIL';state.step=$('difficulty').value==='easy'?10:7;$('stepSize').value=state.step;reset()};
 $('pinkName').oninput=()=>document.querySelector('.pink h2').textContent='🐎 '+$('pinkName').value.toUpperCase();$('blueName').oninput=()=>document.querySelector('.blue h2').textContent='🐎 '+$('blueName').value.toUpperCase();
 function upload(id,fn){$(id).onchange=e=>{let f=e.target.files[0];if(f)fn(URL.createObjectURL(f))}}
-upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rojo">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});upload('backgroundImage',u=>$('track').style.backgroundImage='url("'+u+'")');
+upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rojo">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});upload('backgroundImage',u=>{const track=$('track');track.style.setProperty('background-image','url("'+u+'")','important');track.style.backgroundSize='cover';track.style.backgroundPosition='center center';track.style.backgroundRepeat='no-repeat';});
 upload('musicFile',u=>{stopDefaultMusic();$('music').src=u});upload('tapSound',u=>$('tapAudio').src=u);upload('winSound',u=>$('winAudio').src=u);
 $('volume').oninput=()=>$('music').volume=Number($('volume').value);
 $('soundBtn').onclick=()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'🔊 SONIDO: ACTIVADO':'🔇 SONIDO: APAGADO';if(!state.sound){$('music').pause();stopDefaultMusic()}else if(state.running){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}};
