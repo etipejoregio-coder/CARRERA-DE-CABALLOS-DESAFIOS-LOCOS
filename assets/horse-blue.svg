@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300">
+<defs>
+ <linearGradient id="coat" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="#ffd28a"/><stop offset=".45" stop-color="#c97835"/><stop offset="1" stop-color="#71351f"/></linearGradient>
+ <linearGradient id="saddle" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2e9fff"/><stop offset="1" stop-color="#0755bd"/></linearGradient>
+ <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<ellipse cx="206" cy="268" rx="145" ry="15" fill="#071326" opacity=".24" filter="url(#shadow)"/>
+<!-- tail -->
+<path d="M102 153 C55 123 43 151 60 178 C25 171 25 210 70 210 C39 235 78 251 111 211 L151 175Z" fill="#512719" stroke="#29170f" stroke-width="9" stroke-linejoin="round"/>
+<path d="M76 174 Q54 161 68 151 M75 215 Q53 229 68 236" fill="none" stroke="#a85a30" stroke-width="8" stroke-linecap="round"/>
+<!-- rear legs -->
+<path d="M146 192 Q118 218 98 242 L75 250 Q63 263 80 270 L124 266 Q143 248 169 222Z" fill="url(#coat)" stroke="#54291a" stroke-width="9" stroke-linejoin="round"/>
+<path d="M75 250 L124 248 L119 268 L79 273 Q59 268 75 250Z" fill="#282d3d" stroke="#111827" stroke-width="6"/>
+<path d="M231 195 Q250 222 279 237 L302 251 Q312 268 293 272 L258 258 Q229 241 205 218Z" fill="url(#coat)" stroke="#54291a" stroke-width="9" stroke-linejoin="round"/>
+<path d="M284 249 L311 251 Q323 263 307 274 L284 274 L270 261Z" fill="#282d3d" stroke="#111827" stroke-width="6"/>
+<!-- body -->
+<path d="M104 133 Q126 98 194 112 Q257 119 280 159 Q286 197 248 214 Q186 235 123 201 Q93 181 104 133Z" fill="url(#coat)" stroke="#54291a" stroke-width="10"/>
+<path d="M126 130 Q169 112 217 129" fill="none" stroke="#ffe0a6" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+<!-- front legs -->
+<path d="M245 182 Q276 203 304 222 L341 229 Q354 240 338 250 L294 246 Q264 230 226 212Z" fill="url(#coat)" stroke="#54291a" stroke-width="9" stroke-linejoin="round"/>
+<path d="M326 225 L352 229 Q364 240 347 252 L325 252 L311 240Z" fill="#282d3d" stroke="#111827" stroke-width="6"/>
+<path d="M191 195 Q194 223 218 241 L238 250 Q245 267 225 270 L192 254 Q165 231 163 207Z" fill="url(#coat)" stroke="#54291a" stroke-width="9" stroke-linejoin="round"/>
+<path d="M220 247 L247 251 Q260 264 242 275 L218 272 L205 260Z" fill="#282d3d" stroke="#111827" stroke-width="6"/>
+<!-- neck and head -->
+<path d="M228 151 Q240 103 278 80 Q301 64 330 83 Q347 100 335 132 Q318 159 283 181 L259 195Z" fill="url(#coat)" stroke="#54291a" stroke-width="10"/>
+<path d="M266 101 Q258 62 280 43 Q295 23 315 41 Q333 60 325 92 L306 116Z" fill="#6f351f" stroke="#351a12" stroke-width="8"/>
+<path d="M282 47 Q290 28 301 42 L309 68Z" fill="#f2a6a0" stroke="#54291a" stroke-width="5"/>
+<path d="M316 50 Q335 33 341 53 L331 83Z" fill="#f2a6a0" stroke="#54291a" stroke-width="5"/>
+<!-- mane -->
+<path d="M253 108 Q229 83 252 70 Q238 46 264 42 Q254 14 284 24 Q300 1 316 27 Q343 14 347 43 Q371 51 350 76 Q353 97 331 105 L313 91 L293 109Z" fill="#542719" stroke="#29170f" stroke-width="8" stroke-linejoin="round"/>
+<path d="M263 55 Q278 43 287 34 M292 67 Q311 49 317 37 M324 76 Q344 61 347 50" fill="none" stroke="#a85a30" stroke-width="7" stroke-linecap="round"/>
+<!-- muzzle -->
+<path d="M319 111 Q348 101 365 122 Q376 142 357 157 Q337 169 313 151 L299 132Z" fill="#f4d4ad" stroke="#54291a" stroke-width="8"/>
+<ellipse cx="346" cy="139" rx="4" ry="6" fill="#54291a"/><ellipse cx="360" cy="137" rx="4" ry="6" fill="#54291a"/>
+<!-- eye -->
+<ellipse cx="315" cy="105" rx="13" ry="17" fill="#fff" stroke="#351a12" stroke-width="5"/><ellipse cx="319" cy="108" rx="6" ry="9" fill="#101827"/><circle cx="322" cy="102" r="3" fill="#fff"/>
+<!-- bridle -->
+<path d="M288 93 Q307 123 328 126 M300 121 Q320 149 350 153 M331 83 Q340 104 339 121" fill="none" stroke="#ffd34d" stroke-width="8" stroke-linecap="round"/>
+<circle cx="301" cy="112" r="6" fill="#fff0a6" stroke="#9c6415" stroke-width="3"/>
+<!-- saddle cloth -->
+<path d="M135 128 Q183 111 222 134 L232 184 Q190 204 147 183Z" fill="url(#saddle)" stroke="#fff0b0" stroke-width="7" stroke-linejoin="round"/>
+<path d="M176 137 L188 157 L210 160 L193 174 L198 195 L178 182 L158 193 L164 171 L147 156 L170 155Z" fill="#ffdf55" stroke="#a86a12" stroke-width="3"/>
+<path d="M146 127 Q177 116 205 126" fill="none" stroke="url(#shine)" stroke-width="7" stroke-linecap="round"/>
+</svg>
