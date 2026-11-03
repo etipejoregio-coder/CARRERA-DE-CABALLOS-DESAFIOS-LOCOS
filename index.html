@@ -43,7 +43,7 @@ main{max-width:1450px;margin:auto;padding:0 18px 28px}
 .input-buttons .tap{display:inline-flex}
 .tap{width:100%;font-size:19px;padding:16px;color:white;margin-top:4px}.pink .tap{background:linear-gradient(135deg,#ff70b7,#d71976);box-shadow:0 5px 0 #8f1550}.blue .tap{background:linear-gradient(135deg,#63c9ff,#0878d4);box-shadow:0 5px 0 #064b8a}
 .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:17px 0}.status{text-align:center;min-height:32px;font-weight:900;font-size:clamp(17px,2.5vw,24px);color:var(--gold);text-shadow:0 2px 5px #0008}
-details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-top:18px;padding:14px 17px}summary{font-weight:1000;cursor:pointer;letter-spacing:.5px;font-size:18px}.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin-top:15px}.field{display:flex;flex-direction:column;gap:6px;color:#c9d7f2;font-size:13px}.field input,.field select{width:100%;background:#202e50;color:white;border:1px solid #657ba7;border-radius:9px;padding:9px}.field small{color:#93a8d0;line-height:1.35}.instructions{line-height:1.65;color:#dce7ff}.footer{text-align:center;color:#91a4cc;font-size:12px;padding:20px}\n#settingsGear{position:fixed;top:14px;right:16px;z-index:40;width:54px;height:54px;border-radius:50%;padding:0;font-size:27px;color:#fff;background:linear-gradient(145deg,#526b9e,#263b68);border:2px solid #a9c7ff;box-shadow:0 5px 18px #0008;display:none}\nbody.in-game #settingsGear{display:block}\n#editMenu.gear-open{outline:2px solid #ffd45b;box-shadow:0 0 25px #ffd45b55}\n#quitBtn{background:linear-gradient(135deg,#ff7777,#c71936);color:white;box-shadow:0 5px 0 #741326}
+details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-top:18px;padding:14px 17px}summary{font-weight:1000;cursor:pointer;letter-spacing:.5px;font-size:18px}.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin-top:15px}.field{display:flex;flex-direction:column;gap:6px;color:#c9d7f2;font-size:13px}.field input,.field select{width:100%;background:#202e50;color:white;border:1px solid #657ba7;border-radius:9px;padding:9px}.field small{color:#93a8d0;line-height:1.35}.instructions{line-height:1.65;color:#dce7ff}.footer{text-align:center;color:#91a4cc;font-size:12px;padding:20px}\n#settingsGear{position:fixed;bottom:14px;right:14px;top:auto;z-index:70;width:54px;height:54px;border-radius:50%;padding:0;font-size:27px;color:#fff;background:linear-gradient(145deg,#526b9e,#263b68);border:2px solid #a9c7ff;box-shadow:0 5px 18px #0008;display:none}\nbody.in-game #settingsGear{display:block}\n#editMenu.gear-open{outline:2px solid #ffd45b;box-shadow:0 0 25px #ffd45b55}\n#quitBtn{background:linear-gradient(135deg,#ff7777,#c71936);color:white;box-shadow:0 5px 0 #741326}
 @media(max-width:650px){.controls{grid-template-columns:1fr}.track{height:76vh;min-height:520px}.runner{width:clamp(125px,28vw,170px);height:82%}.horse{font-size:78px}.lane{padding:0 8px}.lane-label{left:10px;top:9px;font-size:12px}.finish{width:22px;right:2%}.topbar{gap:6px}.pill{padding:8px 12px;font-size:12px}}
 
 #homeScreen{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 50% 35%,#294d83 0,#111a35 58%,#080e20 100%);text-align:center}
@@ -73,7 +73,7 @@ body.in-game .actions{margin:8px 0 2px;gap:7px}
 body.in-game .actions button{padding:7px 12px;font-size:12px}
 body.in-game .status{font-size:17px;min-height:22px}
 body.in-game .footer{display:none}
-#editMenu{display:none;position:fixed;z-index:60;left:50%;top:78px;transform:translateX(-50%);width:min(1000px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#111a31f7;box-shadow:0 20px 70px #000c;border:2px solid #ffd45b}
+#editMenu{display:none;position:fixed;z-index:65;left:50%;top:auto;bottom:78px;transform:translateX(-50%);width:min(1000px,calc(100vw - 28px));max-height:calc(100vh - 100px);overflow:auto;background:#111a31f7;box-shadow:0 20px 70px #000c;border:2px solid #ffd45b}
 #editMenu[open]{display:block}
 #editMenu summary{position:sticky;top:0;background:#111a31;padding:8px;z-index:2}
 #editMenu .settings{padding-bottom:8px}
@@ -87,7 +87,7 @@ body.in-game main{max-width:none;padding:5px 10px 6px}
 body.in-game .topbar{margin:0 0 5px;gap:6px}
 body.in-game .pill{padding:5px 12px;font-size:11px}
 body.in-game .arena{padding:6px;border-radius:14px}
-body.in-game .track{height:calc(100vh - 112px);min-height:420px;max-height:none}
+body.in-game .track{height:calc(100vh - 88px);min-height:0;max-height:none}
 body.in-game .controls{display:none!important}
 body.in-game .actions{margin:6px 0 0;gap:6px}
 body.in-game .actions button{padding:6px 12px;font-size:12px}
@@ -96,7 +96,16 @@ body.in-game .footer{display:none}
 #editMenu{display:none;position:fixed;z-index:60;left:50%;top:78px;transform:translateX(-50%);width:min(1000px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#111a31f7;box-shadow:0 20px 70px #000c;border:2px solid #ffd45b}
 #editMenu[open]{display:block}
 #editMenu summary{position:sticky;top:0;background:#111a31;padding:8px;z-index:2}
-@media(max-width:650px){body.in-game .track{height:calc(100vh - 112px);min-height:360px}body.in-game .actions button{font-size:10px;padding:6px 8px}}
+@media(max-width:650px){body.in-game .track{height:calc(100vh - 82px);min-height:0}body.in-game .actions button{font-size:10px;padding:6px 8px}}
+body.in-game,body.in-game main{height:100vh;min-height:0;overflow:hidden}
+body.in-game main{padding:5px 8px!important;display:flex;flex-direction:column}
+body.in-game .led-sign{flex:0 0 auto;margin-bottom:5px}
+body.in-game .arena{flex:1;min-height:0;padding:5px}
+body.in-game .track{height:100%!important;min-height:0!important}
+body.in-game #status,body.in-game .footer,body.in-game .actions{display:none!important}
+body.in-game #settingsGear{bottom:12px;right:12px;top:auto}
+body.in-game #editMenu{bottom:76px;top:auto;max-height:calc(100vh - 95px)}
+body.in-game #editMenu summary{scroll-margin:0}
 
 </style>
 </head>
@@ -172,15 +181,23 @@ function reset(){$('winnerResult').textContent='Aún no hay ganador';countdownTo
 function pulse(k){if(!state.running||state.done)return;let p=k==='pink'?'pink':'blue';state[p]++;if(state.sound){let a=$('tapAudio');if(a.src){a.currentTime=0;a.play().catch(()=>{})}else beep(p==='pink'?640:420)}if(state[p]>=state.goal){state[p]=0;const oldProgress=state[p+'P'];const superPower=Math.random()<.20;const advance=state.step*(superPower?2.35:1);state[p+'P']=Math.min(100,state[p+'P']+advance);makeTrail(p,oldProgress,superPower);if(superPower){const runner=$(p+'Runner');runner.classList.add('super');$('status').textContent='⚡ ¡SUPER PODER '+(p==='pink'?'ROJO':'AZUL')+'!';beep(p==='pink'?1120:980,.24);setTimeout(()=>{runner.classList.remove('super');runner.style.setProperty('--move-duration',state.moveSpeed+'s')},1150)}else{$('status').textContent=(p==='pink'?'¡ROJO':'¡AZUL')+' AVANZA';beep(p==='pink'?880:700,.16)}if(state[p+'P']>=100)finish(p)}draw()}
 function finish(k){state.done=true;state.running=false;$('music').pause();$('winnerResult').textContent='🏆 ¡GANÓ '+$(''+k+'Name').value.toUpperCase()+'!';$('status').textContent='¡CARRERA TERMINADA! ABRE EL ENGRANE PARA VER EL RESULTADO';say('¡Tenemos ganador! ¡Felicidades '+$(''+k+'Name').value+'!');if($('winAudio').src&&state.sound){$('winAudio').currentTime=0;$('winAudio').play().catch(()=>{})}else{beep(1000,.25);setTimeout(()=>beep(1300,.3),180)}}
 function applyInputMode(){const mode=$('inputMode').value;document.body.classList.remove('input-buttons','input-keyboard','input-usb');document.body.classList.add('input-'+mode);$('pinkTap').textContent='¡PULSAR ROJO!'+(mode==='buttons'?' (MOUSE)':'');$('blueTap').textContent='¡PULSAR AZUL!'+(mode==='buttons'?' (MOUSE)':'')}
+// Guardar automáticamente controles y volumen para que no se pierdan al cerrar o reiniciar.
+const settingIds=['pinkKey','blueKey','startKey','restartKey','homeKey','inputMode','volume'];
+function saveControls(){try{const data={};settingIds.forEach(id=>data[id]=$(id).value);localStorage.setItem('raceControlSettings',JSON.stringify(data))}catch(e){}}
+function loadControls(){try{const data=JSON.parse(localStorage.getItem('raceControlSettings')||'null');if(data){settingIds.forEach(id=>{if(data[id]!==undefined&&$(id))$(id).value=data[id]})}}catch(e){}}
+loadControls();
+settingIds.forEach(id=>{$(id).addEventListener('change',saveControls);$(id).addEventListener('input',saveControls)});
 $('inputMode').onchange=applyInputMode;applyInputMode();
-$('startBtn').onclick=start;$('resetBtn').onclick=reset;$('enterGame').onclick=enterGame;$('quitBtn').onclick=returnHome;$('settingsGear').onclick=()=>{const menu=$('editMenu');menu.open=!menu.open;menu.classList.toggle('gear-open',menu.open);if(menu.open)menu.scrollIntoView({behavior:'smooth',block:'start'});};$('editMenu').addEventListener('toggle',()=>{$('editMenu').classList.toggle('gear-open',$('editMenu').open)});$('pinkTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('pink')};$('blueTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('blue')};
+$('startBtn').onclick=start;$('resetBtn').onclick=reset;$('enterGame').onclick=enterGame;$('quitBtn').onclick=returnHome;$('settingsGear').onclick=()=>{const menu=$('editMenu');menu.open=!menu.open;menu.classList.toggle('gear-open',menu.open);};$('editMenu').addEventListener('toggle',()=>{$('editMenu').classList.toggle('gear-open',$('editMenu').open)});$('pinkTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('pink')};$('blueTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('blue')};
 document.addEventListener('keydown',e=>{
  const focused=document.activeElement;
  const keyFields=['pinkKey','blueKey','startKey','restartKey','homeKey'];
  if(focused&&keyFields.includes(focused.id)){
    e.preventDefault();
    focused.value=e.key===' '?'Space':e.key;
+   saveControls();
    focused.blur();
+   draw();
    return;
  }
  if(e.repeat)return;
@@ -242,7 +259,7 @@ function updateLed(){const msg=$('ledText').value.trim()||'¡BIENVENIDOS A LA CA
 function loadSavedLed(){try{const saved=JSON.parse(localStorage.getItem('savedLedSettings')||'null');if(saved){if(typeof saved.text==='string')$('ledText').value=saved.text;if(Number.isFinite(saved.speed))$('ledSpeed').value=String(Math.max(6,Math.min(40,saved.speed)))}}catch(e){}}
 $('saveLed').onclick=()=>{try{localStorage.setItem('savedLedSettings',JSON.stringify({text:$('ledText').value,speed:Number($('ledSpeed').value)}));$('saveLed').textContent='✓ LETRERO GUARDADO';setTimeout(()=>$('saveLed').textContent='💾 GUARDAR LETRERO LED',2200)}catch(e){alert('No se pudo guardar la configuración del letrero LED.')}};
 loadSavedLed();$('ledText').oninput=updateLed;$('ledSpeed').oninput=updateLed;updateLed();
-$('volume').oninput=()=>$('music').volume=Number($('volume').value);
+$('volume').oninput=()=>{$('music').volume=Number($('volume').value);saveControls()};$('music').volume=Number($('volume').value);
 $('soundBtn').onclick=()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'🔊 SONIDO: ACTIVADO':'🔇 SONIDO: APAGADO';if(!state.sound){$('music').pause();stopDefaultMusic()}else if(state.running){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}};
 $('pinkMeter').innerHTML='';$('blueMeter').innerHTML='';draw();
 })();
