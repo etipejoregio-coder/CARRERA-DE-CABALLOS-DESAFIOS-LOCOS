@@ -46,21 +46,21 @@ details{background:#111a31;border:1px solid #40527b;border-radius:17px;margin-to
 .home-card{width:min(900px,96vw);padding:clamp(24px,5vw,58px);border:2px solid #6b85b8;border-radius:30px;background:linear-gradient(145deg,#1d3156ee,#101a33f5);box-shadow:0 25px 80px #000b}
 .home-kicker{color:#ffd45b;font-weight:1000;letter-spacing:5px;font-size:clamp(12px,2vw,17px)}
 .home-title{font-size:clamp(38px,8vw,82px);line-height:.98;font-weight:1000;margin:18px 0;text-shadow:0 7px 0 #10172d,0 12px 35px #0009}
-.home-title span{color:#ffd45b}.home-horses{display:flex;justify-content:center;gap:clamp(24px,8vw,90px);font-size:clamp(62px,12vw,112px);margin:18px 0 26px}.home-horses span:first-child{filter:drop-shadow(0 8px 12px #29a8ff88)}.home-horses span:last-child{filter:drop-shadow(0 8px 12px #ff3e9d88)}
+.home-title span{color:#ffd45b}.home-horses{display:flex;justify-content:center;align-items:center;gap:clamp(24px,8vw,90px);margin:18px 0 26px}.home-horses img{width:clamp(130px,22vw,220px);height:clamp(105px,17vw,170px);object-fit:contain;filter:drop-shadow(0 8px 12px #0008)}
 #enterGame{font-size:clamp(19px,3vw,27px);padding:17px 42px;background:linear-gradient(135deg,#ffe889,#ffb928);box-shadow:0 6px 0 #a86b0b}
 .home-hint{color:#d4e1ff;margin-top:18px;font-weight:800;letter-spacing:1px}.home-sub{color:#a9bee5;font-size:14px;margin-top:12px}
 body.in-game #homeScreen{display:none}body:not(.in-game) main,body:not(.in-game) header{visibility:hidden}
 </style>
 </head>
 <body>
-<div id="homeScreen"><div class="home-card"><div class="home-kicker">DESAFÍOS LOCOS PRESENTA</div><div class="home-title">CARRERA DE<br><span>CABALLOS</span></div><div class="home-horses"><span>🐎</span><span>🐎</span></div><button id="enterGame">🏁 ENTRAR AL JUEGO</button><div class="home-hint">PRESIONA ENTER PARA COMENZAR</div><div class="home-sub">Dos caballos · Dos competidores · ¡Que gane el mejor!</div></div></div>
+<div id="homeScreen"><div class="home-card"><div class="home-kicker">DESAFÍOS LOCOS PRESENTA</div><div class="home-title">CARRERA DE<br><span>CABALLOS</span></div><div class="home-horses"><img src="assets/horse-blue.svg" alt="Caballo azul"><img src="assets/horse-red.svg" alt="Caballo rojo"></div><button id="enterGame">🏁 ENTRAR AL JUEGO</button><div class="home-hint">PRESIONA ENTER PARA COMENZAR</div><div class="home-sub">Dos caballos · Dos competidores · ¡Que gane el mejor!</div></div></div>
 <header><div><div class="brand">DESAFÍOS <span>LOCOS</span></div><div class="tag">CARRERA DE CABALLOS</div></div><div class="tag">2 COMPETIDORES · ¡A GALOPAR!</div></header>
 <main>
 <div class="topbar"><div class="pill">MODO: <b id="modeLabel">FÁCIL</b></div><div class="pill">PULSACIONES: <b id="pulseLabel">5</b></div><div class="pill">META: <b>100%</b></div></div>
 <section class="arena">
 <div class="track" id="track">
-<div class="lane blue"><div class="lane-label">AZUL</div><div class="runner" id="blueRunner"><span class="horse" id="blueEmoji">🐎</span></div><div class="progress"><i id="blueProgress"></i></div></div>
-<div class="lane pink"><div class="lane-label">ROJO</div><div class="runner" id="pinkRunner"><span class="horse" id="pinkEmoji">🐎</span></div><div class="progress"><i id="pinkProgress"></i></div></div>
+<div class="lane blue"><div class="lane-label">AZUL</div><div class="runner" id="blueRunner"><img src="assets/horse-blue.svg" alt="Caballo azul"></div><div class="progress"><i id="blueProgress"></i></div></div>
+<div class="lane pink"><div class="lane-label">ROJO</div><div class="runner" id="pinkRunner"><img src="assets/horse-red.svg" alt="Caballo rojo"></div><div class="progress"><i id="pinkProgress"></i></div></div>
 <div class="finish" title="Meta"></div>
 </div>
 <div class="controls">
@@ -82,8 +82,8 @@ body.in-game #homeScreen{display:none}body:not(.in-game) main,body:not(.in-game)
 <label class="field">Tecla para volver a la portada<input id="homeKey" maxlength="12" value="Escape"><small>Presiona esta tecla durante la carrera para regresar a la sala de inicio.</small></label>
 <label class="field">Nombre caballo rojo<input id="pinkName" value="CABALLO ROJO"></label>
 <label class="field">Nombre caballo azul<input id="blueName" value="CABALLO AZUL"></label>
-<label class="field">Imagen caballo rojo<input id="pinkImage" type="file" accept="image/*"><small>Sube PNG, JPG o WebP. Si no eliges imagen se usa el caballo predeterminado.</small></label>
-<label class="field">Imagen caballo azul<input id="blueImage" type="file" accept="image/*"></label>
+<label class="field">Imagen caballo rojo<input id="pinkImage" type="file" accept="image/*"><small>Caballo predeterminado incluido. Puedes reemplazarlo con tu PNG, JPG o WebP.</small></label>
+<label class="field">Imagen caballo azul<input id="blueImage" type="file" accept="image/*"><small>Caballo azul predeterminado incluido. Puedes reemplazarlo con tu propia imagen.</small></label>
 <label class="field">Fondo de la pista<input id="backgroundImage" type="file" accept="image/*"></label>
 <label class="field">Música de carrera (reemplaza la música incluida)<input id="musicFile" type="file" accept="audio/*"><small>El juego incluye música instrumental automática. Puedes subir tu propia canción para sustituirla.</small></label>
 <label class="field">Efecto de pulsación<input id="tapSound" type="file" accept="audio/*"><small>Si no subes uno, se usa un efecto electrónico predeterminado.</small></label>
