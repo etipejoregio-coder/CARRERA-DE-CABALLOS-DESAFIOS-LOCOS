@@ -22,7 +22,8 @@
     "files": [
       "index.html",
       "main.js",
-      "package.json"
+      "package.json",
+      "assets/**/*"
     ],
     "win": {
       "target": [
