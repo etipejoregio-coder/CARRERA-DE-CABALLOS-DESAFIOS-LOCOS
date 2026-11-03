@@ -76,6 +76,24 @@ body.in-game .footer{display:none}
 .save-image{background:linear-gradient(135deg,#ffe889,#ffb928);color:#30200a;box-shadow:0 4px 0 #a86b0b;padding:8px 10px}
 @media(max-width:650px){body.in-game .track{height:calc(100vh - 310px);min-height:360px}body.in-game .controls{grid-template-columns:1fr 1fr}body.in-game .player{padding:5px}body.in-game .player h2{font-size:13px}body.in-game .tap{font-size:12px;padding:7px}}
 
+
+/* Presentación limpia: pista protagonista */
+body.in-game header{display:none}
+body.in-game main{max-width:none;padding:5px 10px 6px}
+body.in-game .topbar{margin:0 0 5px;gap:6px}
+body.in-game .pill{padding:5px 12px;font-size:11px}
+body.in-game .arena{padding:6px;border-radius:14px}
+body.in-game .track{height:calc(100vh - 135px);min-height:440px;max-height:none}
+body.in-game .controls{display:none!important}
+body.in-game .actions{margin:6px 0 0;gap:6px}
+body.in-game .actions button{padding:6px 12px;font-size:12px}
+body.in-game .status{font-size:15px;min-height:19px}
+body.in-game .footer{display:none}
+#editMenu{display:none;position:fixed;z-index:60;left:50%;top:78px;transform:translateX(-50%);width:min(1000px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#111a31f7;box-shadow:0 20px 70px #000c;border:2px solid #ffd45b}
+#editMenu[open]{display:block}
+#editMenu summary{position:sticky;top:0;background:#111a31;padding:8px;z-index:2}
+@media(max-width:650px){body.in-game .track{height:calc(100vh - 120px);min-height:380px}body.in-game .actions button{font-size:10px;padding:6px 8px}}
+
 </style>
 </head>
 <body>
@@ -105,12 +123,14 @@ body.in-game .footer{display:none}
 <small>Para pulsadores USB, conecta tu encoder al PC. El sistema lo reconoce como teclado y puedes asignar una tecla a cada caballo.</small></label>
 <label class="field">Tecla / pulsador caballo rojo<input id="pinkKey" maxlength="1" value="a" autocomplete="off"><small>Haz clic aquí y presiona el botón físico para asignarlo.</small></label>
 <label class="field">Tecla / pulsador caballo azul<input id="blueKey" maxlength="1" value="l" autocomplete="off"><small>Haz clic aquí y presiona el botón físico para asignarlo.</small></label>
+<label class="field">Tecla para iniciar carrera<input id="startKey" maxlength="12" value="Enter" autocomplete="off"><small>Haz clic y presiona la tecla que iniciará la carrera.</small></label>
+<label class="field">Tecla para reiniciar carrera<input id="restartKey" maxlength="12" value="r" autocomplete="off"><small>Haz clic y presiona la tecla para reiniciar la carrera.</small></label>
 <label class="field">Tecla para volver a la portada<input id="homeKey" maxlength="12" value="Escape"><small>Presiona esta tecla durante la carrera para regresar a la sala de inicio.</small></label>
 <label class="field">Nombre caballo rojo<input id="pinkName" value="CABALLO ROJO"></label>
 <label class="field">Nombre caballo azul<input id="blueName" value="CABALLO AZUL"></label>
 <label class="field">Imagen caballo rojo<input id="pinkImage" type="file" accept="image/png,image/*"><button class="save-image" id="savePinkImage" type="button">💾 GUARDAR IMAGEN ROJA</button><small>Selecciona tu PNG y pulsa Guardar imagen para conservarla al cerrar el juego.</small></label>
 <label class="field">Imagen caballo azul<input id="blueImage" type="file" accept="image/png,image/*"><button class="save-image" id="saveBlueImage" type="button">💾 GUARDAR IMAGEN AZUL</button><small>Selecciona tu PNG y pulsa Guardar imagen para conservarla al cerrar el juego.</small></label>
-<label class="field">Fondo de la pista<input id="backgroundImage" type="file" accept="image/*"></label>
+<label class="field">Fondo de la pista<input id="backgroundImage" type="file" accept="image/*"><button class="save-image" id="saveTrackImage" type="button">💾 GUARDAR PISTA</button><small>Selecciona tu fondo y pulsa Guardar pista para conservarlo al volver a abrir el juego.</small></label>
 <label class="field">Música de carrera (reemplaza la música incluida)<input id="musicFile" type="file" accept="audio/*"><small>El juego incluye música instrumental automática. Puedes subir tu propia canción para sustituirla.</small></label>
 <label class="field">Efecto de pulsación<input id="tapSound" type="file" accept="audio/*"><small>Si no subes uno, se usa un efecto electrónico predeterminado.</small></label>
 <label class="field">Efecto de victoria<input id="winSound" type="file" accept="audio/*"><small>Si no subes uno, se usa una fanfarria electrónica predeterminada.</small></label>
@@ -136,7 +156,7 @@ function startDefaultMusic(){if(!state.sound||musicTimer)return;try{ctx=ctx||new
 function stopDefaultMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
 function makeTrail(k,oldProgress,isSuper){const lane=$(k+'Runner').parentElement;const t=document.createElement('span');t.className='trail '+k+(isSuper?' super':'');t.style.left=Math.max(0,5+oldProgress*.86-8)+'%';lane.appendChild(t);setTimeout(()=>t.remove(),1300)}
 function meter(id,n){$(id).innerHTML=Array.from({length:state.goal},(_,i)=>'<i class="dot '+(i<n?'on':'')+'"></i>').join('')}
-function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.setProperty('--move-duration',$(k+'Runner').classList.contains('super')?'.55s':state.moveSpeed+'s');$(k+'Runner').style.left=(4+prog*.82)+'%';$(k+'Progress').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROJO! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
+function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],prog=state[k+'P'];$(k+'Count').textContent=p+' de '+goal+' pulsaciones';meter(k+'Meter',p);$(k+'Runner').style.setProperty('--move-duration',$(k+'Runner').classList.contains('super')?'.55s':state.moveSpeed+'s');$(k+'Runner').style.left=(4+prog*.92)+'%';$(k+'Progress').style.setProperty('--move-duration',state.moveSpeed+'s');$(k+'Progress').style.width=prog+'%'});$('pulseLabel').textContent=goal;$('pinkTap').textContent='¡PULSAR ROJO! ('+$('pinkKey').value.toUpperCase()+')';$('blueTap').textContent='¡PULSAR AZUL! ('+$('blueKey').value.toUpperCase()+')'}
 function enterGame(){state.inGame=true;document.body.classList.add('in-game');reset();$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';}
 function returnHome(){reset();state.inGame=false;document.body.classList.remove('in-game');$('editMenu').open=false;$('editMenu').classList.remove('gear-open');}
 function start(){if(!state.inGame||state.done||state.running||countdownTimer)return;const token=++countdownToken;let step=0;const sequence=['3','2','1','¡A CORRER!'];$('status').textContent='3';beep(660,.18);const tick=()=>{if(token!==countdownToken)return;if(step>=sequence.length){countdownTimer=null;state.running=true;$('status').textContent='🏁 ¡A CORRER!';say('¡A correr!');$('music').volume=Number($('volume').value);if(state.sound){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}beep(1040,.35);return}$('status').textContent=sequence[step];beep(step===3?1040:660-step*90,.18);step++;countdownTimer=setTimeout(tick,step===4?650:1000)};countdownTimer=setTimeout(tick,1000)}
@@ -146,7 +166,28 @@ function finish(k){state.done=true;state.running=false;$('music').pause();$('sta
 function applyInputMode(){const mode=$('inputMode').value;document.body.classList.remove('input-buttons','input-keyboard','input-usb');document.body.classList.add('input-'+mode);$('pinkTap').textContent='¡PULSAR ROJO!'+(mode==='buttons'?' (MOUSE)':'');$('blueTap').textContent='¡PULSAR AZUL!'+(mode==='buttons'?' (MOUSE)':'')}
 $('inputMode').onchange=applyInputMode;applyInputMode();
 $('startBtn').onclick=start;$('resetBtn').onclick=reset;$('enterGame').onclick=enterGame;$('quitBtn').onclick=returnHome;$('settingsGear').onclick=()=>{const menu=$('editMenu');menu.open=!menu.open;menu.classList.toggle('gear-open',menu.open);if(menu.open)menu.scrollIntoView({behavior:'smooth',block:'start'});};$('editMenu').addEventListener('toggle',()=>{$('editMenu').classList.toggle('gear-open',$('editMenu').open)});$('pinkTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('pink')};$('blueTap').onclick=()=>{if($('inputMode').value==='buttons')pulse('blue')};
-document.addEventListener('keydown',e=>{const focused=document.activeElement;if(focused&&['pinkKey','blueKey'].includes(focused.id)){if(e.key.length===1){e.preventDefault();focused.value=e.key.toLowerCase();focused.dispatchEvent(new Event('change',{bubbles:true}));focused.blur()}return}if(e.repeat)return;const tag=document.activeElement.tagName;const editing=['INPUT','SELECT','TEXTAREA'].includes(tag);if(editing)return;const key=e.key.toLowerCase();const homeKey=$('homeKey').value.trim().toLowerCase();if(state.inGame&&homeKey&&key===homeKey){e.preventDefault();returnHome();return}if(!state.inGame&&key==='enter'){e.preventDefault();enterGame();return}if(!state.inGame)return;const mode=$('inputMode').value;if(mode==='keyboard'||mode==='usb'){if(key===$('pinkKey').value.toLowerCase())pulse('pink');if(key===$('blueKey').value.toLowerCase())pulse('blue')}});
+document.addEventListener('keydown',e=>{
+ const focused=document.activeElement;
+ const keyFields=['pinkKey','blueKey','startKey','restartKey','homeKey'];
+ if(focused&&keyFields.includes(focused.id)){
+   e.preventDefault();
+   focused.value=e.key===' '?'Space':e.key;
+   focused.blur();
+   return;
+ }
+ if(e.repeat)return;
+ const tag=focused&&focused.tagName;
+ if(['INPUT','SELECT','TEXTAREA'].includes(tag))return;
+ const key=e.key.toLowerCase();
+ const matches=(id)=>{const v=$(id).value.trim().toLowerCase();return v==='space'?key===' ':v===key};
+ if(state.inGame&&matches('homeKey')){e.preventDefault();returnHome();return}
+ if(!state.inGame&&matches('startKey')){e.preventDefault();enterGame();return}
+ if(!state.inGame)return;
+ if(matches('restartKey')){e.preventDefault();reset();return}
+ if(!state.running&&!state.done&&matches('startKey')){e.preventDefault();start();return}
+ const mode=$('inputMode').value;
+ if(mode==='keyboard'||mode==='usb'){if(matches('pinkKey'))pulse('pink');if(matches('blueKey'))pulse('blue')}
+});
 $('pulseGoal').onchange=()=>{state.goal=Math.max(1,Math.min(20,Number($('pulseGoal').value)||5));$('pulseGoal').value=state.goal;state.pink=state.blue=0;draw()};
 $('stepSize').onchange=()=>state.step=Math.max(3,Math.min(20,Number($('stepSize').value)||10));
 $('moveSpeed').onchange=()=>{state.moveSpeed=Math.max(1,Math.min(8,Number($('moveSpeed').value)||2.8));draw()};
@@ -176,7 +217,16 @@ function loadSavedHorseImages(){
   });
 }
 
-upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rojo">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});saveHorseImage('pinkImage','savedPinkHorse','pinkRunner','savePinkImage');saveHorseImage('blueImage','savedBlueHorse','blueRunner','saveBlueImage');loadSavedHorseImages();upload('backgroundImage',u=>{const track=$('track');track.style.setProperty('background-image','url("'+u+'")','important');track.style.backgroundSize='cover';track.style.backgroundPosition='center center';track.style.backgroundRepeat='no-repeat';});
+upload('pinkImage',u=>{$('pinkRunner').innerHTML='<img src="'+u+'" alt="Caballo rojo">'});upload('blueImage',u=>{$('blueRunner').innerHTML='<img src="'+u+'" alt="Caballo azul">'});saveHorseImage('pinkImage','savedPinkHorse','pinkRunner','savePinkImage');saveHorseImage('blueImage','savedBlueHorse','blueRunner','saveBlueImage');loadSavedHorseImages();function applyTrackImage(u){const track=$('track');track.style.setProperty('background-image','url("'+u+'")','important');track.style.backgroundSize='cover';track.style.backgroundPosition='center center';track.style.backgroundRepeat='no-repeat'}
+upload('backgroundImage',applyTrackImage);
+$('saveTrackImage').onclick=()=>{
+  const file=$('backgroundImage').files[0];
+  if(!file){alert('Primero selecciona la imagen de fondo de la pista.');return}
+  const reader=new FileReader();
+  reader.onload=()=>{try{localStorage.setItem('savedRaceTrack',reader.result);applyTrackImage(reader.result);$('saveTrackImage').textContent='✓ PISTA GUARDADA';setTimeout(()=>$('saveTrackImage').textContent='💾 GUARDAR PISTA',2200)}catch(err){alert('La imagen es demasiado grande para guardarse. Prueba con una imagen optimizada.')}};
+  reader.readAsDataURL(file);
+};
+const savedTrack=localStorage.getItem('savedRaceTrack');if(savedTrack)applyTrackImage(savedTrack);
 upload('musicFile',u=>{stopDefaultMusic();$('music').src=u});upload('tapSound',u=>$('tapAudio').src=u);upload('winSound',u=>$('winAudio').src=u);
 $('volume').oninput=()=>$('music').volume=Number($('volume').value);
 $('soundBtn').onclick=()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'🔊 SONIDO: ACTIVADO':'🔇 SONIDO: APAGADO';if(!state.sound){$('music').pause();stopDefaultMusic()}else if(state.running){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}};
