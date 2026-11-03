@@ -87,7 +87,7 @@ body.in-game main{max-width:none;padding:5px 10px 6px}
 body.in-game .topbar{margin:0 0 5px;gap:6px}
 body.in-game .pill{padding:5px 12px;font-size:11px}
 body.in-game .arena{padding:6px;border-radius:14px}
-body.in-game .track{height:calc(100vh - 48px);min-height:420px;max-height:none}
+body.in-game .track{height:calc(100vh - 112px);min-height:420px;max-height:none}
 body.in-game .controls{display:none!important}
 body.in-game .actions{margin:6px 0 0;gap:6px}
 body.in-game .actions button{padding:6px 12px;font-size:12px}
@@ -96,7 +96,7 @@ body.in-game .footer{display:none}
 #editMenu{display:none;position:fixed;z-index:60;left:50%;top:78px;transform:translateX(-50%);width:min(1000px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#111a31f7;box-shadow:0 20px 70px #000c;border:2px solid #ffd45b}
 #editMenu[open]{display:block}
 #editMenu summary{position:sticky;top:0;background:#111a31;padding:8px;z-index:2}
-@media(max-width:650px){body.in-game .track{height:calc(100vh - 42px);min-height:360px}body.in-game .actions button{font-size:10px;padding:6px 8px}}
+@media(max-width:650px){body.in-game .track{height:calc(100vh - 112px);min-height:360px}body.in-game .actions button{font-size:10px;padding:6px 8px}}
 
 </style>
 </head>
@@ -104,7 +104,7 @@ body.in-game .footer{display:none}
 <div id="homeScreen"><div class="home-card"><div class="home-kicker">DESAFÍOS LOCOS PRESENTA</div><div class="home-title">CARRERA DE<br><span>CABALLOS</span></div><div class="home-horses"><img src="assets/horse-blue.svg" alt="Caballo azul"><img src="assets/horse-red.svg" alt="Caballo rojo"></div><button id="enterGame">🏁 ENTRAR AL JUEGO</button><div class="home-hint">PRESIONA ENTER PARA COMENZAR</div><div class="home-sub">Dos caballos · Dos competidores · ¡Que gane el mejor!</div></div></div>
 <button id="settingsGear" type="button" title="Abrir configuración" aria-label="Abrir configuración">⚙</button>\n<header><div><div class="brand">DESAFÍOS <span>LOCOS</span></div><div class="tag">CARRERA DE CABALLOS</div></div><div class="tag">2 COMPETIDORES · ¡A GALOPAR!</div></header>
 <main>
-<div class="topbar"><div class="pill">MODO: <b id="modeLabel">FÁCIL</b></div><div class="pill">PULSACIONES: <b id="pulseLabel">5</b></div><div class="pill">META: <b>100%</b></div></div>
+ 
 <div class="led-sign" aria-live="off"><div class="led-track"><span id="ledMessage">¿QUIÉN VA A GANAR? ¡EQUIPO AZUL O EQUIPO ROJO!</span><span id="ledMessageClone" aria-hidden="true">¿QUIÉN VA A GANAR? ¡EQUIPO AZUL O EQUIPO ROJO!</span></div></div>
 <section class="arena">
 <div class="track" id="track">
@@ -120,17 +120,18 @@ body.in-game .footer{display:none}
 </section>
 <details id="editMenu"><summary>☰ MENÚ DE EDICIÓN — PERSONALIZA TODO EL JUEGO</summary>
 <div class="settings">
+<div class="field" style="grid-column:1/-1;display:flex;flex-direction:row;gap:10px;flex-wrap:wrap"><span class="pill">MODO: <b id="modeLabel">FÁCIL</b></span><span class="pill">PULSACIONES: <b id="pulseLabel">5</b></span><span class="pill">META: <b>100%</b></span></div>
 <div class="field" style="grid-column:1/-1"><b>CONTROLES DEL JUEGO</b><div class="actions" style="justify-content:flex-start;margin:4px 0"><button id="startBtn">🏁 INICIAR CARRERA</button><button id="resetBtn">↻ REINICIAR</button><button id="soundBtn">🔊 SONIDO: ACTIVADO</button><button id="quitBtn">⏻ SALIR DEL JUEGO</button></div><b>RESULTADO</b><div id="winnerResult" style="font-size:22px;color:#ffd45b;padding:8px 0">Aún no hay ganador</div></div>
 <label class="field">Dificultad<select id="difficulty"><option value="easy">Fácil — avanza cada 5 pulsos</option><option value="hard">Difícil — avanza cada 5 pulsos, recorrido mayor</option></select></label>
 <label class="field">Pulsaciones por avance<input id="pulseGoal" type="number" min="1" max="20" value="5"></label>
 <label class="field">Modo de control
 <select id="inputMode"><option value="buttons">Botones en pantalla (mouse o táctil)</option><option value="keyboard">Teclado de computadora</option><option value="usb">Pulsadores físicos USB</option></select>
 <small>Para pulsadores USB, conecta tu encoder al PC. El sistema lo reconoce como teclado y puedes asignar una tecla a cada caballo.</small></label>
-<label class="field">Tecla / pulsador caballo rojo<input id="pinkKey" maxlength="1" value="a" autocomplete="off"><small>Haz clic aquí y presiona el botón físico para asignarlo.</small></label>
-<label class="field">Tecla / pulsador caballo azul<input id="blueKey" maxlength="1" value="l" autocomplete="off"><small>Haz clic aquí y presiona el botón físico para asignarlo.</small></label>
-<label class="field">Tecla para iniciar carrera<input id="startKey" maxlength="12" value="Enter" autocomplete="off"><small>Haz clic y presiona la tecla que iniciará la carrera.</small></label>
-<label class="field">Tecla para reiniciar carrera<input id="restartKey" maxlength="12" value="r" autocomplete="off"><small>Haz clic y presiona la tecla para reiniciar la carrera.</small></label>
-<label class="field">Tecla para volver a la portada<input id="homeKey" maxlength="12" value="Escape"><small>Presiona esta tecla durante la carrera para regresar a la sala de inicio.</small></label>
+<label class="field">Tecla / pulsador caballo rojo<input id="pinkKey" maxlength="12" value="a" placeholder="PRESIONA TECLA PARA ELEGIR" autocomplete="off"><small>Haz clic en el campo y presiona la tecla o pulsador que quieras asignar.</small></label>
+<label class="field">Tecla / pulsador caballo azul<input id="blueKey" maxlength="12" value="l" placeholder="PRESIONA TECLA PARA ELEGIR" autocomplete="off"><small>Haz clic en el campo y presiona la tecla o pulsador que quieras asignar.</small></label>
+<label class="field">Tecla para iniciar carrera<input id="startKey" maxlength="12" value="Enter" placeholder="PRESIONA TECLA PARA ELEGIR" autocomplete="off"><small>Haz clic y presiona la tecla que iniciará la carrera.</small></label>
+<label class="field">Tecla para reiniciar carrera<input id="restartKey" maxlength="12" value="r" placeholder="PRESIONA TECLA PARA ELEGIR" autocomplete="off"><small>Haz clic y presiona la tecla para reiniciar la carrera.</small></label>
+<label class="field">Tecla para volver a la portada<input id="homeKey" maxlength="12" value="Escape" placeholder="PRESIONA TECLA PARA ELEGIR" autocomplete="off"><small>Haz clic y presiona la tecla para regresar a la sala de inicio.</small></label>
 <label class="field">Nombre caballo rojo<input id="pinkName" value="CABALLO ROJO"></label>
 <label class="field">Nombre caballo azul<input id="blueName" value="CABALLO AZUL"></label>
 <label class="field">Imagen caballo rojo<input id="pinkImage" type="file" accept="image/png,image/*"><button class="save-image" id="savePinkImage" type="button">💾 GUARDAR IMAGEN ROJA</button><small>Selecciona tu PNG y pulsa Guardar imagen para conservarla al cerrar el juego.</small></label>
@@ -143,7 +144,7 @@ body.in-game .footer{display:none}
 <label class="field">Distancia por avance (%)<input id="stepSize" type="number" min="3" max="20" value="10"><small>El caballo recorrerá esa distancia poco a poco, con una animación suave.</small></label>
 <label class="field">Velocidad del caballo (segundos)<input id="moveSpeed" type="number" min="1" max="8" step=".5" value="2.8"><small>Más segundos = avance más lento y suave.</small></label>
 <label class="field">Texto del letrero LED<input id="ledText" value="¿QUIÉN VA A GANAR? ¡EQUIPO AZUL O EQUIPO ROJO!" maxlength="120"><small>Escribe el mensaje que aparecerá desplazándose sobre la pista.</small></label>
-<label class="field">Velocidad del letrero LED (segundos)<input id="ledSpeed" type="range" min="6" max="40" step="1" value="18"><small>Menos segundos = más rápido. Más segundos = más lento.</small><b id="ledSpeedLabel">18 segundos</b></label>
+<label class="field">Velocidad del letrero LED (segundos)<input id="ledSpeed" type="range" min="6" max="40" step="1" value="18"><small>Menos segundos = más rápido. Más segundos = más lento.</small><b id="ledSpeedLabel">18 segundos</b><button class="save-image" id="saveLed" type="button">💾 GUARDAR LETRERO LED</button></label>
 <label class="field">Volumen música<input id="volume" type="range" min="0" max="1" step=".05" value=".55"></label>
 </div>
 <p class="instructions"><b>Cómo jugar:</b> Cada jugador presiona repetidamente su botón o tecla. Cada 5 pulsaciones el caballo avanza y deja una estela luminosa de su color. Al azar (20% de probabilidad) puede activar un SUPER PODER: avanza más del doble y más rápido; el efecto desaparece y vuelve al avance normal. ¡Sigue pulsando hasta cruzar la meta! En modo difícil, la pista es más larga. Puedes cambiar las teclas, imágenes, fondo, música y efectos en este panel.</p>
@@ -167,7 +168,7 @@ function draw(){let goal=state.goal;['pink','blue'].forEach(k=>{let p=state[k],p
 function enterGame(){state.inGame=true;document.body.classList.add('in-game');reset();$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';}
 function returnHome(){reset();state.inGame=false;document.body.classList.remove('in-game');$('editMenu').open=false;$('editMenu').classList.remove('gear-open');}
 function start(){if(!state.inGame||state.done||state.running||countdownTimer)return;const token=++countdownToken;let step=0;const sequence=['3','2','1','¡A CORRER!'];$('status').textContent='3';beep(660,.18);const tick=()=>{if(token!==countdownToken)return;if(step>=sequence.length){countdownTimer=null;state.running=true;$('status').textContent='🏁 ¡A CORRER!';say('¡A correr!');$('music').volume=Number($('volume').value);if(state.sound){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}beep(1040,.35);return}$('status').textContent=sequence[step];beep(step===3?1040:660-step*90,.18);step++;countdownTimer=setTimeout(tick,step===4?650:1000)};countdownTimer=setTimeout(tick,1000)}
-function reset(){$('winnerResult').textContent='Aún no hay ganador';countdownToken++;if(countdownTimer){clearTimeout(countdownTimer);countdownTimer=null}state.running=false;state.done=false;state.pink=state.blue=state.pinkP=state.blueP=0;$('music').pause();stopDefaultMusic();$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';draw()}
+function reset(){$('winnerResult').textContent='Aún no hay ganador';countdownToken++;if(countdownTimer){clearTimeout(countdownTimer);countdownTimer=null}state.running=false;state.done=false;state.pink=state.blue=state.pinkP=state.blueP=0;$('music').pause();try{$('music').currentTime=0}catch(e){}stopDefaultMusic();musicBeat=0;$('status').textContent='¡PREPÁRENSE! PRESIONA INICIAR CARRERA';draw()}
 function pulse(k){if(!state.running||state.done)return;let p=k==='pink'?'pink':'blue';state[p]++;if(state.sound){let a=$('tapAudio');if(a.src){a.currentTime=0;a.play().catch(()=>{})}else beep(p==='pink'?640:420)}if(state[p]>=state.goal){state[p]=0;const oldProgress=state[p+'P'];const superPower=Math.random()<.20;const advance=state.step*(superPower?2.35:1);state[p+'P']=Math.min(100,state[p+'P']+advance);makeTrail(p,oldProgress,superPower);if(superPower){const runner=$(p+'Runner');runner.classList.add('super');$('status').textContent='⚡ ¡SUPER PODER '+(p==='pink'?'ROJO':'AZUL')+'!';beep(p==='pink'?1120:980,.24);setTimeout(()=>{runner.classList.remove('super');runner.style.setProperty('--move-duration',state.moveSpeed+'s')},1150)}else{$('status').textContent=(p==='pink'?'¡ROJO':'¡AZUL')+' AVANZA';beep(p==='pink'?880:700,.16)}if(state[p+'P']>=100)finish(p)}draw()}
 function finish(k){state.done=true;state.running=false;$('music').pause();$('winnerResult').textContent='🏆 ¡GANÓ '+$(''+k+'Name').value.toUpperCase()+'!';$('status').textContent='¡CARRERA TERMINADA! ABRE EL ENGRANE PARA VER EL RESULTADO';say('¡Tenemos ganador! ¡Felicidades '+$(''+k+'Name').value+'!');if($('winAudio').src&&state.sound){$('winAudio').currentTime=0;$('winAudio').play().catch(()=>{})}else{beep(1000,.25);setTimeout(()=>beep(1300,.3),180)}}
 function applyInputMode(){const mode=$('inputMode').value;document.body.classList.remove('input-buttons','input-keyboard','input-usb');document.body.classList.add('input-'+mode);$('pinkTap').textContent='¡PULSAR ROJO!'+(mode==='buttons'?' (MOUSE)':'');$('blueTap').textContent='¡PULSAR AZUL!'+(mode==='buttons'?' (MOUSE)':'')}
@@ -238,7 +239,9 @@ function saveAudio(inputId,storageKey,audioId,buttonId,defaultText,afterSave){$(
 saveAudio('musicFile','savedRaceMusic','music','saveMusicFile','💾 GUARDAR MÚSICA',stopDefaultMusic);saveAudio('tapSound','savedTapSound','tapAudio','saveTapSound','💾 GUARDAR EFECTO');saveAudio('winSound','savedWinSound','winAudio','saveWinSound','💾 GUARDAR VICTORIA');
 [['savedRaceMusic','music'],['savedTapSound','tapAudio'],['savedWinSound','winAudio']].forEach(([key,id])=>{const data=localStorage.getItem(key);if(data)$(id).src=data});
 function updateLed(){const msg=$('ledText').value.trim()||'¡BIENVENIDOS A LA CARRERA!';$('ledMessage').textContent=msg;$('ledMessageClone').textContent=msg;const speed=Number($('ledSpeed').value)||18;document.documentElement.style.setProperty('--led-speed',speed+'s');$('ledSpeedLabel').textContent=speed+' segundos'}
-$('ledText').oninput=updateLed;$('ledSpeed').oninput=updateLed;updateLed();
+function loadSavedLed(){try{const saved=JSON.parse(localStorage.getItem('savedLedSettings')||'null');if(saved){if(typeof saved.text==='string')$('ledText').value=saved.text;if(Number.isFinite(saved.speed))$('ledSpeed').value=String(Math.max(6,Math.min(40,saved.speed)))}}catch(e){}}
+$('saveLed').onclick=()=>{try{localStorage.setItem('savedLedSettings',JSON.stringify({text:$('ledText').value,speed:Number($('ledSpeed').value)}));$('saveLed').textContent='✓ LETRERO GUARDADO';setTimeout(()=>$('saveLed').textContent='💾 GUARDAR LETRERO LED',2200)}catch(e){alert('No se pudo guardar la configuración del letrero LED.')}};
+loadSavedLed();$('ledText').oninput=updateLed;$('ledSpeed').oninput=updateLed;updateLed();
 $('volume').oninput=()=>$('music').volume=Number($('volume').value);
 $('soundBtn').onclick=()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'🔊 SONIDO: ACTIVADO':'🔇 SONIDO: APAGADO';if(!state.sound){$('music').pause();stopDefaultMusic()}else if(state.running){if($('music').src)$('music').play().catch(()=>{});else startDefaultMusic()}};
 $('pinkMeter').innerHTML='';$('blueMeter').innerHTML='';draw();
