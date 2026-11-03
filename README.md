@@ -2,7 +2,7 @@
 
 Juego de escritorio para Windows 10 y Windows 11, con dos carriles independientes:
 - Carril superior: caballo azul (tecla **L**).
-- Carril inferior: caballo rosa (tecla **A**).
+- Carril inferior: caballo rojo (tecla **A**).
 
 Los caballos corren hacia la meta. Cada jugador avanza al completar el número configurado de pulsaciones. También se puede jugar con los botones que aparecen en pantalla.
 
@@ -25,10 +25,11 @@ Los archivos que selecciones desde tu PC se usan localmente en el juego.
 
 ## Controles
 
-- **A:** caballo rosa.
+- **A:** caballo rojo.
 - **L:** caballo azul.
 - **Enter:** iniciar la carrera.
-- También puedes usar los botones en pantalla.
+- En el menú puedes elegir botones en pantalla, teclado o pulsadores USB (encoder reconocido por Windows como teclado).
+- Para asignar un pulsador USB, selecciona ese modo, haz clic en el campo de cada caballo y presiona el botón físico correspondiente.
 
 ## Proyecto
 
